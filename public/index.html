@@ -411,13 +411,14 @@ input:focus{
 }
 
 .cardItem{
-    width:90px;
-    min-height:105px;
-    border-radius:16px;
-    background:#f8fafc;
+    width:100px;
+    min-height:125px;
+    border-radius:18px;
+
+    background:linear-gradient(145deg,#ffffff,#e2e8f0);
     color:#111827;
 
-    padding:8px;
+    padding:12px;
 
     display:flex;
     flex-direction:column;
@@ -425,40 +426,96 @@ input:focus{
     justify-content:center;
 
     text-align:center;
-
     font-weight:900;
-    font-size:12px;
-    line-height:1.15;
-
-    white-space:normal;
-    overflow-wrap:anywhere;
-    word-break:break-word;
+    font-size:15px;
 
     box-shadow:
-        0 8px 18px
-        rgba(0,0,0,.25);
+        0 10px 22px rgba(0,0,0,.30),
+        inset 0 0 0 2px rgba(255,255,255,.8);
 
     cursor:pointer;
 
-    border:
-        4px solid
-        transparent;
+    border:4px solid transparent;
 
-    transition:.15s;
+    position:relative;
+    overflow:hidden;
+
+    transition:
+        transform .18s,
+        box-shadow .18s,
+        border-color .18s;
+}
+
+
+
+.cardItem:hover{
+    transform:translateY(-6px) scale(1.03);
+    box-shadow:
+        0 14px 28px rgba(0,0,0,.35);
 }
 
 .cardItem.selected{
-
     border-color:#facc15;
 
     transform:
-        translateY(-5px);
+        translateY(-10px)
+        scale(1.08);
 
     box-shadow:
-        0 10px 25px
-        rgba(250,204,21,.25);
+        0 15px 35px rgba(250,204,21,.55),
+        0 0 0 3px rgba(250,204,21,.20),
+        0 0 25px rgba(250,204,21,.30);
+
+    z-index:5;
+}
+/* =========================
+   PARQO CARD THEMES
+========================= */
+
+.card-fruit{
+    background:linear-gradient(145deg,#fff7ed,#fed7aa);
+    border-color:#fb923c;
 }
 
+.card-animal{
+    background:linear-gradient(145deg,#ecfccb,#bef264);
+    border-color:#65a30d;
+}
+
+.card-character{
+    background:linear-gradient(145deg,#ede9fe,#c4b5fd);
+    border-color:#8b5cf6;
+}
+
+.card-movie{
+    background:linear-gradient(145deg,#fee2e2,#fca5a5);
+    border-color:#ef4444;
+}
+
+.card-sport{
+    background:linear-gradient(145deg,#dbeafe,#93c5fd);
+    border-color:#2563eb;
+}
+
+.card-funny{
+    background:linear-gradient(145deg,#fef9c3,#fde047);
+    border-color:#eab308;
+}
+
+.card-place{
+    background:linear-gradient(145deg,#ccfbf1,#5eead4);
+    border-color:#0d9488;
+}
+
+.card-name{
+    background:linear-gradient(145deg,#f1f5f9,#cbd5e1);
+    border-color:#64748b;
+}
+
+.card-parqo{
+    background:linear-gradient(145deg,#f8fafc,#cbd5e1);
+    border-color:#475569;
+}
 .targetGrid{
 
     display:grid;
@@ -484,18 +541,47 @@ input:focus{
 
     background:#2563eb;
 }
+.next-player{
+    border:2px solid #22c55e !important;
+    background:linear-gradient(
+        135deg,
+        #166534,
+        #15803d
+    ) !important;
 
+    box-shadow:
+        0 0 15px rgba(34,197,94,.35);
+}
+
+.locked-player{
+    opacity:.45;
+}
 .status{
+    padding:15px 18px;
+    border-radius:16px;
 
-    padding:13px;
+    background:linear-gradient(
+        135deg,
+        #111827,
+        #1e293b
+    );
 
-    border-radius:12px;
-
-    background:#0f172a;
-
-    margin:12px 0;
+    margin:14px 0;
 
     text-align:center;
+
+    font-size:16px;
+    font-weight:800;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
 }
 
 .win{
@@ -541,11 +627,11 @@ input:focus{
     }
 
     .cardItem{
-    width:76px;
-    min-height:90px;
-    font-size:10px;
-    padding:6px;
-}
+
+        width:76px;
+
+        min-height:90px;
+    }
 
     .roomCode{
 
@@ -560,51 +646,7 @@ input:focus{
 }
 
 </style>
-<style>
 
-    /* existing CSS... */
-
-
-    /* ===== PARQO CARD TEXT FIX ===== */
-
-    .cardItem{
-        width:90px !important;
-        min-width:0 !important;
-        max-width:90px !important;
-        min-height:105px !important;
-
-        padding:6px !important;
-
-        display:flex !important;
-        align-items:center !important;
-        justify-content:center !important;
-
-        text-align:center !important;
-
-        font-size:11px !important;
-        line-height:1.1 !important;
-        font-weight:900 !important;
-
-        white-space:normal !important;
-        overflow:hidden !important;
-        overflow-wrap:anywhere !important;
-        word-break:break-all !important;
-    }
-
-    @media(max-width:520px){
-        .cardItem{
-            width:76px !important;
-            max-width:76px !important;
-            min-width:0 !important;
-            min-height:90px !important;
-            font-size:9px !important;
-            padding:5px !important;
-        }
-    }
-
-</style>
-
-</head>
 </head>
 
 <body>
@@ -836,7 +878,20 @@ function getName(){
 // =========================================
 // CREATE ROOM
 // =========================================
+function getCountryCode(){
 
+    const language =
+        navigator.language ||
+        navigator.userLanguage ||
+        "";
+
+    const country =
+        language.split("-")[1];
+
+    return country
+        ? country.toUpperCase()
+        : "IN";
+}
 function createRoom(){
 
     const name =
@@ -854,6 +909,7 @@ function createRoom(){
     socket.emit(
         "createRoom",
         name,
+        getCountryCode(),
         result => {
 
             if(
@@ -1478,7 +1534,119 @@ function startGame(){
 // =========================================
 // RENDER GAME
 // =========================================
+// =========================================
+// CARD THEME
+// =========================================
 
+function getCardTheme(cardName){
+
+    const name = String(cardName || "").toUpperCase();
+
+    const themes = {
+
+        // 🍎 FRUITS
+        MANGO:        ["🍋", "FRUIT"],
+        APPLE:        ["🍎", "FRUIT"],
+        BANANA:       ["🍌", "FRUIT"],
+        ORANGE:       ["🍊", "FRUIT"],
+        GRAPES:       ["🍇", "FRUIT"],
+        PAPAYA:       ["🥭", "FRUIT"],
+        GUAVA:        ["🍐", "FRUIT"],
+        WATERMELON:   ["🍉", "FRUIT"],
+        PINEAPPLE:    ["🍍", "FRUIT"],
+        STRAWBERRY:   ["🍓", "FRUIT"],
+        POMEGRANATE:  ["🍎", "FRUIT"],
+        COCONUT:      ["🥥", "FRUIT"],
+        PEAR:         ["🍐", "FRUIT"],
+        PEACH:        ["🍑", "FRUIT"],
+        CHERRY:       ["🍒", "FRUIT"],
+
+        // 🦁 ANIMALS
+        TIGER:        ["🐯", "ANIMAL"],
+        LION:         ["🦁", "ANIMAL"],
+        ELEPHANT:     ["🐘", "ANIMAL"],
+        HORSE:        ["🐴", "ANIMAL"],
+        MONKEY:       ["🐒", "ANIMAL"],
+        BEAR:         ["🐻", "ANIMAL"],
+        WOLF:         ["🐺", "ANIMAL"],
+        FOX:          ["🦊", "ANIMAL"],
+        DEER:         ["🦌", "ANIMAL"],
+        RABBIT:       ["🐰", "ANIMAL"],
+        PANDA:        ["🐼", "ANIMAL"],
+        GIRAFFE:      ["🦒", "ANIMAL"],
+        ZEBRA:        ["🦓", "ANIMAL"],
+        CAMEL:        ["🐪", "ANIMAL"],
+        CROCODILE:    ["🐊", "ANIMAL"],
+
+        // 🦸 CHARACTERS
+        HERO:         ["🦸", "CHARACTER"],
+        ROBOT:        ["🤖", "CHARACTER"],
+        NINJA:        ["🥷", "CHARACTER"],
+        PIRATE:       ["🏴‍☠️", "CHARACTER"],
+        WIZARD:       ["🧙", "CHARACTER"],
+        SUPERHERO:    ["🦸‍♂️", "CHARACTER"],
+        DETECTIVE:    ["🕵️", "CHARACTER"],
+        COWBOY:       ["🤠", "CHARACTER"],
+        ALIEN:        ["👽", "CHARACTER"],
+        KING:         ["👑", "CHARACTER"],
+        QUEEN:        ["👸", "CHARACTER"],
+        PRINCE:       ["🤴", "CHARACTER"],
+        WARRIOR:      ["⚔️", "CHARACTER"],
+        MAGICIAN:     ["🎩", "CHARACTER"],
+        SPY:          ["🕶️", "CHARACTER"],
+
+        // 🎬 MOVIES
+        DANGAL:       ["🎬", "MOVIE"],
+        SHOLAY:       ["🎞️", "MOVIE"],
+        JAWAN:        ["🎥", "MOVIE"],
+        PATHAAN:      ["🎬", "MOVIE"],
+        KGF:          ["🎞️", "MOVIE"],
+        PUSHPA:       ["🎥", "MOVIE"],
+        "3IDIOTS":    ["🎓", "MOVIE"],
+        BAHUBALI:     ["⚔️", "MOVIE"],
+        RAID:         ["🚨", "MOVIE"],
+        URI:          ["🎖️", "MOVIE"],
+        SULTAN:       ["🥊", "MOVIE"],
+        DON:          ["🕶️", "MOVIE"],
+        LAGAAN:       ["🏏", "MOVIE"],
+        DRISHYAM:     ["👀", "MOVIE"],
+        RRR:          ["🔥", "MOVIE"],
+
+        // ⚽ SPORTS
+        CRICKET:      ["🏏", "SPORT"],
+        FOOTBALL:     ["⚽", "SPORT"],
+        TENNIS:       ["🎾", "SPORT"],
+        HOCKEY:       ["🏑", "SPORT"],
+        BOXING:       ["🥊", "SPORT"],
+        WRESTLING:    ["🤼", "SPORT"],
+        BADMINTON:    ["🏸", "SPORT"],
+        GOLF:         ["⛳", "SPORT"],
+        RACING:       ["🏎️", "SPORT"],
+        KABADDI:      ["🤼", "SPORT"],
+        BASKETBALL:   ["🏀", "SPORT"],
+        VOLLEYBALL:   ["🏐", "SPORT"],
+        CHESS:        ["♟️", "SPORT"],
+        SWIMMING:     ["🏊", "SPORT"],
+        CYCLING:      ["🚴", "SPORT"],
+
+        // 😂 FUNNY
+        CHOCOLATE:    ["🍫", "FUNNY"],
+        BOSS:         ["😎", "FUNNY"],
+        DONKEY:       ["🫏", "FUNNY"],
+        ROCKET:       ["🚀", "FUNNY"],
+        BULLET:       ["💥", "FUNNY"],
+        CHAMP:        ["🏆", "FUNNY"],
+        JOKER:        ["🃏", "FUNNY"],
+        BOSSBABU:     ["😎", "FUNNY"],
+        SAMOSA:       ["🥟", "FUNNY"],
+        JALEBI:       ["🍩", "FUNNY"],
+        MAGGI:        ["🍜", "FUNNY"],
+        LASSI:        ["🥛", "FUNNY"],
+        PAPPU:        ["😂", "FUNNY"]
+    };
+
+    return themes[name] || ["🃏", "PARQO"];
+}
 function renderGame(
     state
 ){
@@ -1486,7 +1654,16 @@ function renderGame(
     const myTurn =
         state.currentPlayerId ===
         socket.id;
+const currentIndex =
+    state.players.findIndex(
+        p => p.id === state.currentPlayerId
+    );
 
+const nextPlayerId =
+    state.players[
+        (currentIndex + 1) %
+        state.players.length
+    ]?.id;
     const winner =
         state.winnerId;
 
@@ -1502,8 +1679,8 @@ function renderGame(
             <div class="win">
 
                 <h1>
-                    🏆 WINNER!
-                </h1>
+    🏆 PARQO WINNER! 🏆
+</h1>
 
                 <h2>
                     ${esc(
@@ -1625,6 +1802,7 @@ function renderGame(
                         <div
                             class="
                                 cardItem
+                                card-${getCardTheme(card)[1].toLowerCase()}
                                 ${
                                     selectedCard === index
                                     ? "selected"
@@ -1638,7 +1816,7 @@ function renderGame(
                             "
                         >
 
-                            ${esc(card)}
+                            ${getCardTheme(card)[0]}<br>${esc(card)}
 
                         </div>
 
@@ -1667,19 +1845,29 @@ function renderGame(
                         p => `
 
                             <button
-                                class="
-                                    target
-                                    ${
-                                        selectedTarget === p.id
-                                        ? "selected"
-                                        : ""
-                                    }
+                               class="
+    target
+    ${
+        selectedTarget === p.id
+        ? "selected"
+        : ""
+    }
+    ${
+        p.id === nextPlayerId
+        ? "next-player"
+        : "locked-player"
+    }
+"
                                 "
                                 onclick="
                                     selectTarget(
                                         '${p.id}'
                                     )
                                 "
+                                ${(
+    !myTurn ||
+    p.id !== nextPlayerId
+) ? "disabled" : ""}
                             >
 
                                 👤

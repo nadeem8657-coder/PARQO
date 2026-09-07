@@ -9,6 +9,159 @@ const io = new Server(server);
 app.use(express.static("public"));
 
 const rooms = {};
+const COUNTRY_POOLS = {
+
+    IN: {
+
+        funny: [
+            "JALEBI JOKER",
+            "CHAI CHAMPION",
+            "SAMOSA SULTAN",
+            "MAGGI MASTER",
+            "PAPPU ROCKET",
+            "LASSI LEGEND",
+            "GOLU BOSS",
+            "NAUTANKI NAWAB"
+        ],
+
+        cinema: [
+            "FILMY FAUJI",
+            "HERO BABU",
+            "DRAMA DON",
+            "PICTURE PANDIT",
+            "CINEMA CHACHA",
+            "MASALA MASTER"
+        ],
+
+        sports: [
+            "CRICKET CHAMP",
+            "KABADDI KING",
+            "HOCKEY HERO",
+            "BOXING BHAI",
+            "RACING RAJA",
+            "FOOTBALL FAN"
+        ],
+
+        cars: [
+            "DESI DRIVER",
+            "TURBO RAJA",
+            "SPEED SULTAN",
+            "ROAD ROCKET",
+            "CAR CHAMP"
+        ],
+
+        places: [
+            "JAIPUR JOKER",
+            "DELHI DON",
+            "MUMBAI MASKA",
+            "KOTA KING",
+            "AGRA HERO",
+            "GOA GANGSTER"
+        ]
+
+    },
+
+    US: {
+
+        funny: [
+            "BURGER BOSS",
+            "COOKIE KING",
+            "PIZZA JOKER",
+            "DONUT DON",
+            "TACO TIGER",
+            "HOTDOG HERO",
+            "COWBOY CRAZY",
+            "ROCKET DUDE"
+        ],
+
+        cinema: [
+            "HOLLYWOOD HERO",
+            "MOVIE MASTER",
+            "ACTION ACE",
+            "DRAMA DUDE",
+            "CINEMA KING",
+            "FILM BOSS"
+        ],
+
+        sports: [
+            "BASEBALL BOSS",
+            "BASKETBALL KING",
+            "FOOTBALL HERO",
+            "BOXING CHAMP",
+            "RACING ROCKET",
+            "TENNIS TITAN"
+        ],
+
+        cars: [
+            "MUSCLE MASTER",
+            "ROAD KING",
+            "TURBO BOSS",
+            "SPEED DEMON",
+            "CAR CHAMP"
+        ],
+
+        places: [
+            "NEW YORK KING",
+            "TEXAS TITAN",
+            "HOLLYWOOD HERO",
+            "MIAMI MASTER",
+            "BOSTON BOSS",
+            "VEGAS VICTOR"
+        ]
+
+    },
+
+    JP: {
+
+        funny: [
+            "SUSHI SAMURAI",
+            "RAMEN ROCKET",
+            "NINJA NOODLE",
+            "KAWAII KING",
+            "TOFU TIGER",
+            "SAKE SENSEI",
+            "TOKYO JOKER",
+            "MANGA MASTER"
+        ],
+
+        cinema: [
+            "ANIME ACE",
+            "MOVIE MASTER",
+            "DRAMA SAMURAI",
+            "CINEMA NINJA",
+            "FILM HERO",
+            "MANGA STAR"
+        ],
+
+        sports: [
+            "BASEBALL SAMURAI",
+            "SUMO CHAMP",
+            "KARATE KING",
+            "FOOTBALL HERO",
+            "TENNIS TITAN",
+            "RACING MASTER"
+        ],
+
+        cars: [
+            "DRIFT KING",
+            "TURBO NINJA",
+            "JDM MASTER",
+            "SPEED SAMURAI",
+            "CAR SHOGUN"
+        ],
+
+        places: [
+            "TOKYO TIGER",
+            "KYOTO KING",
+            "OSAKA ACE",
+            "FUJI HERO",
+            "NARA NINJA",
+            "HIROSHIMA MASTER"
+        ]
+
+    }
+
+};
 
 const NAME_POOLS = {
     animals: [
@@ -91,21 +244,36 @@ function sendPlayers(roomCode) {
     });
 }
 
-function getRandomCardNames(count) {
+function getRandomCardNames(
+    count,
+    countryCode = "IN"
+) {
 
-    const allNames = Object.values(NAME_POOLS).flat();
+    const country =
+        COUNTRY_POOLS[
+            String(countryCode).toUpperCase()
+        ] || COUNTRY_POOLS.IN;
 
-    const shuffled = [...allNames].sort(
-        () => Math.random() - 0.5
+    const allNames =
+        Object.values(country).flat();
+
+    const shuffled =
+        [...allNames].sort(
+            () => Math.random() - 0.5
+        );
+
+    return shuffled.slice(
+        0,
+        count
     );
-
-    return shuffled.slice(0, count);
 }
 
+function createDeck(playerCount, countryCode = "IN") {
 
-function createDeck(playerCount) {
-
-    const selectedNames = getRandomCardNames(playerCount);
+    const selectedNames = getRandomCardNames(
+    playerCount,
+    countryCode
+);
 
     const deck = [];
 
@@ -124,7 +292,10 @@ function createDeck(playerCount) {
     );
 }
 function dealCards(room) {
-    const deck = createDeck(room.players.length);
+    const deck = createDeck(
+    room.players.length,
+    room.countryCode
+);
 
     room.players.forEach((player) => {
         player.cards = [];
@@ -223,7 +394,7 @@ io.on("connection", (socket) => {
 
     socket.on(
         "createRoom",
-        (playerName, callback) => {
+        (playerName, countryCode, callback) => {
 
             const name =
                 String(playerName || "").trim();
@@ -278,6 +449,7 @@ io.on("connection", (socket) => {
                 roomCode: roomCode,
 
                 hostId: socket.id,
+countryCode: String(countryCode || "IN").toUpperCase(),
 
                 players:
                     publicPlayers(

@@ -412,19 +412,26 @@ input:focus{
 
 .cardItem{
 
-    width:90px;
+    width:100px;
 
-    min-height:105px;
+    min-height:125px;
 
-    border-radius:16px;
+    border-radius:18px;
 
-    background:#f8fafc;
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #e2e8f0
+        );
 
     color:#111827;
 
-    padding:10px;
+    padding:12px;
 
     display:flex;
+
+    flex-direction:column;
 
     align-items:center;
 
@@ -434,31 +441,132 @@ input:focus{
 
     font-weight:900;
 
+    font-size:15px;
+
     box-shadow:
-        0 8px 18px
-        rgba(0,0,0,.25);
+transform-style:preserve-3d;
+        0 10px 22px
+        rgba(0,0,0,.30),
+
+        inset 0 0 0 2px
+        rgba(255,255,255,.8);
 
     cursor:pointer;
 
-    border:
-        4px solid
-        transparent;
+    border:4px solid transparent;
 
-    transition:.15s;
+    position:relative;
+ 
+background-image:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.65) 0%,
+        rgba(255,255,255,.12) 35%,
+        transparent 55%
+    );   
+    overflow:hidden;
+
+    transition:
+        transform .18s,
+        box-shadow .18s,
+        border-color .18s;
 }
 
+.cardItem:hover{
+
+    transform:
+        translateY(-6px)
+        scale(1.03);
+
+    box-shadow:
+        0 14px 28px
+        rgba(0,0,0,.35);
+}
+.cardItem::after{
+    content:"";
+    position:absolute;
+    top:-60%;
+    left:-80%;
+    width:50%;
+    height:220%;
+    background:rgba(255,255,255,.45);
+    transform:rotate(25deg);
+    transition:left .45s ease;
+    pointer-events:none;
+}
+.cardItem{
+    text-shadow:
+        0 1px 0 #ffffff,
+        0 3px 6px rgba(0,0,0,.25);
+}
+.cardItem:hover::after{
+    left:130%;
+}
 .cardItem.selected{
 
     border-color:#facc15;
 
     transform:
-        translateY(-5px);
+        translateY(-10px)
+        scale(1.08);
 
     box-shadow:
-        0 10px 25px
-        rgba(250,204,21,.25);
+
+        0 15px 35px
+        rgba(250,204,21,.55),
+
+        0 0 0 3px
+        rgba(250,204,21,.20),
+
+        0 0 25px
+        rgba(250,204,21,.30);
+
+    z-index:5;
+}
+.card-fruit{
+    background:linear-gradient(145deg,#fff7ed,#fed7aa);
+    border-color:#fb923c;
 }
 
+.card-animal{
+    background:linear-gradient(145deg,#ecfccb,#bef264);
+    border-color:#65a30d;
+}
+
+.card-character{
+    background:linear-gradient(145deg,#ede9fe,#c4b5fd);
+    border-color:#8b5cf6;
+}
+
+.card-movie{
+    background:linear-gradient(145deg,#fee2e2,#fca5a5);
+    border-color:#ef4444;
+}
+
+.card-sport{
+    background:linear-gradient(145deg,#dbeafe,#93c5fd);
+    border-color:#2563eb;
+}
+
+.card-funny{
+    background:linear-gradient(145deg,#fef9c3,#fde047);
+    border-color:#eab308;
+}
+
+.card-place{
+    background:linear-gradient(145deg,#ccfbf1,#5eead4);
+    border-color:#0d9488;
+}
+
+.card-name{
+    background:linear-gradient(145deg,#f1f5f9,#cbd5e1);
+    border-color:#64748b;
+}
+
+.card-parqo{
+    background:linear-gradient(145deg,#f8fafc,#cbd5e1);
+    border-color:#475569;
+}
 .targetGrid{
 
     display:grid;
@@ -520,7 +628,7 @@ input:focus{
     border-radius:99px;
 
     overflow:hidden;
-
+background-blend-mode:screen;
     margin-top:12px;
 }
 
@@ -1434,7 +1542,113 @@ function startGame(){
 // =========================================
 // RENDER GAME
 // =========================================
+function getCardTheme(card) {
 
+    const name = String(card).toUpperCase();
+
+    // 🍊 FUNNY
+    if (
+        name.includes("JALEBI") ||
+        name.includes("CHAI") ||
+        name.includes("SAMOSA") ||
+        name.includes("MAGGI") ||
+        name.includes("PAPPU") ||
+        name.includes("LASSI") ||
+        name.includes("GOLU") ||
+        name.includes("NAUTANKI") ||
+        name.includes("BURGER") ||
+        name.includes("COOKIE") ||
+        name.includes("PIZZA") ||
+        name.includes("DONUT") ||
+        name.includes("TACO") ||
+        name.includes("HOTDOG") ||
+        name.includes("COWBOY") ||
+        name.includes("ROCKET DUDE") ||
+        name.includes("SUSHI") ||
+        name.includes("RAMEN") ||
+        name.includes("NOODLE") ||
+        name.includes("KAWAII") ||
+        name.includes("TOFU") ||
+        name.includes("SAKE") ||
+        name.includes("TOKYO JOKER")
+    ) {
+        return ["😂", "funny"];
+    }
+
+    // 🎬 CINEMA
+    if (
+        name.includes("FILMY") ||
+        name.includes("HERO BABU") ||
+        name.includes("DRAMA") ||
+        name.includes("PICTURE") ||
+        name.includes("CINEMA") ||
+        name.includes("MASALA") ||
+        name.includes("HOLLYWOOD") ||
+        name.includes("MOVIE") ||
+        name.includes("ACTION") ||
+        name.includes("FILM BOSS") ||
+        name.includes("ANIME") ||
+        name.includes("MANGA")
+    ) {
+        return ["🎬", "movie"];
+    }
+
+    // 🏏 SPORTS
+    if (
+        name.includes("CRICKET") ||
+        name.includes("KABADDI") ||
+        name.includes("HOCKEY") ||
+        name.includes("BOXING") ||
+        name.includes("RACING") ||
+        name.includes("FOOTBALL") ||
+        name.includes("BASEBALL") ||
+        name.includes("BASKETBALL") ||
+        name.includes("TENNIS") ||
+        name.includes("SUMO") ||
+        name.includes("KARATE")
+    ) {
+        return ["🏆", "sport"];
+    }
+
+    // 🚗 CARS
+    if (
+        name.includes("DRIVER") ||
+        name.includes("TURBO") ||
+        name.includes("SPEED") ||
+        name.includes("ROAD") ||
+        name.includes("CAR") ||
+        name.includes("MUSCLE") ||
+        name.includes("JDM") ||
+        name.includes("DRIFT")
+    ) {
+        return ["🚗", "funny"];
+    }
+
+    // 📍 PLACES
+    if (
+        name.includes("JAIPUR") ||
+        name.includes("DELHI") ||
+        name.includes("MUMBAI") ||
+        name.includes("KOTA") ||
+        name.includes("AGRA") ||
+        name.includes("GOA") ||
+        name.includes("NEW YORK") ||
+        name.includes("TEXAS") ||
+        name.includes("MIAMI") ||
+        name.includes("BOSTON") ||
+        name.includes("VEGAS") ||
+        name.includes("KYOTO") ||
+        name.includes("OSAKA") ||
+        name.includes("FUJI") ||
+        name.includes("NARA") ||
+        name.includes("HIROSHIMA")
+    ) {
+        return ["📍", "place"];
+    }
+
+    // 🃏 DEFAULT
+    return ["🃏", "parqo"];
+}
 function renderGame(
     state
 ){
@@ -1579,24 +1793,24 @@ function renderGame(
                     (card,index) => `
 
                         <div
-                            class="
-                                cardItem
-                                ${
-                                    selectedCard === index
-                                    ? "selected"
-                                    : ""
-                                }
-                            "
-                            onclick="
-                                selectCard(
-                                    ${index}
-                                )
-                            "
-                        >
-
-                            ${esc(card)}
-
-                        </div>
+    class="
+        cardItem
+        card-${getCardTheme(card)[1]}
+        ${
+            selectedCard === index
+            ? "selected"
+            : ""
+        }
+    "
+    onclick="
+        selectCard(
+            ${index}
+        )
+    "
+>
+    ${getCardTheme(card)[0]}<br>
+    ${esc(card)}
+</div>
 
                     `
                 ).join("")

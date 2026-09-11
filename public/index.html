@@ -1542,110 +1542,139 @@ function getCardTheme(cardName){
 
     const name = String(cardName || "").toUpperCase();
 
-    const themes = {
+    if (
+        name.includes("DANGAL") ||
+        name.includes("SHOLAY") ||
+        name.includes("JAWAN") ||
+        name.includes("PATHAAN") ||
+        name.includes("KGF") ||
+        name.includes("PUSHPA") ||
+        name.includes("PICTURE") ||
+        name.includes("CINEMA") ||
+        name.includes("FILMY") ||
+        name.includes("MASALA") ||
+        name.includes("MOVIE") ||
+        name.includes("FILM") ||
+        name.includes("DRAMA")
+    ) return ["🎬", "movie"];
 
-        // 🍎 FRUITS
-        MANGO:        ["🍋", "FRUIT"],
-        APPLE:        ["🍎", "FRUIT"],
-        BANANA:       ["🍌", "FRUIT"],
-        ORANGE:       ["🍊", "FRUIT"],
-        GRAPES:       ["🍇", "FRUIT"],
-        PAPAYA:       ["🥭", "FRUIT"],
-        GUAVA:        ["🍐", "FRUIT"],
-        WATERMELON:   ["🍉", "FRUIT"],
-        PINEAPPLE:    ["🍍", "FRUIT"],
-        STRAWBERRY:   ["🍓", "FRUIT"],
-        POMEGRANATE:  ["🍎", "FRUIT"],
-        COCONUT:      ["🥥", "FRUIT"],
-        PEAR:         ["🍐", "FRUIT"],
-        PEACH:        ["🍑", "FRUIT"],
-        CHERRY:       ["🍒", "FRUIT"],
+    if (
+        name.includes("CRICKET") ||
+        name.includes("KABADDI") ||
+        name.includes("HOCKEY") ||
+        name.includes("BOXING") ||
+        name.includes("RACING") ||
+        name.includes("FOOTBALL") ||
+        name.includes("TENNIS") ||
+        name.includes("WRESTLING") ||
+        name.includes("BADMINTON") ||
+        name.includes("GOLF") ||
+        name.includes("BASKETBALL") ||
+        name.includes("VOLLEYBALL") ||
+        name.includes("CHESS") ||
+        name.includes("SWIMMING") ||
+        name.includes("CYCLING")
+    ) return ["🏆", "sport"];
 
-        // 🦁 ANIMALS
-        TIGER:        ["🐯", "ANIMAL"],
-        LION:         ["🦁", "ANIMAL"],
-        ELEPHANT:     ["🐘", "ANIMAL"],
-        HORSE:        ["🐴", "ANIMAL"],
-        MONKEY:       ["🐒", "ANIMAL"],
-        BEAR:         ["🐻", "ANIMAL"],
-        WOLF:         ["🐺", "ANIMAL"],
-        FOX:          ["🦊", "ANIMAL"],
-        DEER:         ["🦌", "ANIMAL"],
-        RABBIT:       ["🐰", "ANIMAL"],
-        PANDA:        ["🐼", "ANIMAL"],
-        GIRAFFE:      ["🦒", "ANIMAL"],
-        ZEBRA:        ["🦓", "ANIMAL"],
-        CAMEL:        ["🐪", "ANIMAL"],
-        CROCODILE:    ["🐊", "ANIMAL"],
+    if (
+        name.includes("JAIPUR") ||
+        name.includes("DELHI") ||
+        name.includes("MUMBAI") ||
+        name.includes("KOTA") ||
+        name.includes("AGRA") ||
+        name.includes("GOA") ||
+        name.includes("NEW YORK") ||
+        name.includes("TEXAS") ||
+        name.includes("MIAMI") ||
+        name.includes("BOSTON") ||
+        name.includes("VEGAS") ||
+        name.includes("KYOTO") ||
+        name.includes("OSAKA") ||
+        name.includes("FUJI") ||
+        name.includes("NARA")
+    ) return ["📍", "place"];
 
-        // 🦸 CHARACTERS
-        HERO:         ["🦸", "CHARACTER"],
-        ROBOT:        ["🤖", "CHARACTER"],
-        NINJA:        ["🥷", "CHARACTER"],
-        PIRATE:       ["🏴‍☠️", "CHARACTER"],
-        WIZARD:       ["🧙", "CHARACTER"],
-        SUPERHERO:    ["🦸‍♂️", "CHARACTER"],
-        DETECTIVE:    ["🕵️", "CHARACTER"],
-        COWBOY:       ["🤠", "CHARACTER"],
-        ALIEN:        ["👽", "CHARACTER"],
-        KING:         ["👑", "CHARACTER"],
-        QUEEN:        ["👸", "CHARACTER"],
-        PRINCE:       ["🤴", "CHARACTER"],
-        WARRIOR:      ["⚔️", "CHARACTER"],
-        MAGICIAN:     ["🎩", "CHARACTER"],
-        SPY:          ["🕶️", "CHARACTER"],
+    if (
+        name.includes("DRIVER") ||
+        name.includes("TURBO") ||
+        name.includes("SPEED") ||
+        name.includes("ROAD") ||
+        name.includes("CAR") ||
+        name.includes("DRIFT")
+    ) return ["🚗", "funny"];
 
-        // 🎬 MOVIES
-        DANGAL:       ["🎬", "MOVIE"],
-        SHOLAY:       ["🎞️", "MOVIE"],
-        JAWAN:        ["🎥", "MOVIE"],
-        PATHAAN:      ["🎬", "MOVIE"],
-        KGF:          ["🎞️", "MOVIE"],
-        PUSHPA:       ["🎥", "MOVIE"],
-        "3IDIOTS":    ["🎓", "MOVIE"],
-        BAHUBALI:     ["⚔️", "MOVIE"],
-        RAID:         ["🚨", "MOVIE"],
-        URI:          ["🎖️", "MOVIE"],
-        SULTAN:       ["🥊", "MOVIE"],
-        DON:          ["🕶️", "MOVIE"],
-        LAGAAN:       ["🏏", "MOVIE"],
-        DRISHYAM:     ["👀", "MOVIE"],
-        RRR:          ["🔥", "MOVIE"],
+    if (
+        name.includes("JALEBI") ||
+        name.includes("CHAI") ||
+        name.includes("SAMOSA") ||
+        name.includes("MAGGI") ||
+        name.includes("PAPPU") ||
+        name.includes("LASSI") ||
+        name.includes("GOLU") ||
+        name.includes("NAUTANKI") ||
+        name.includes("BURGER") ||
+        name.includes("PIZZA") ||
+        name.includes("DONUT") ||
+        name.includes("TACO") ||
+        name.includes("SUSHI") ||
+        name.includes("RAMEN")
+    ) return ["😂", "funny"];
 
-        // ⚽ SPORTS
-        CRICKET:      ["🏏", "SPORT"],
-        FOOTBALL:     ["⚽", "SPORT"],
-        TENNIS:       ["🎾", "SPORT"],
-        HOCKEY:       ["🏑", "SPORT"],
-        BOXING:       ["🥊", "SPORT"],
-        WRESTLING:    ["🤼", "SPORT"],
-        BADMINTON:    ["🏸", "SPORT"],
-        GOLF:         ["⛳", "SPORT"],
-        RACING:       ["🏎️", "SPORT"],
-        KABADDI:      ["🤼", "SPORT"],
-        BASKETBALL:   ["🏀", "SPORT"],
-        VOLLEYBALL:   ["🏐", "SPORT"],
-        CHESS:        ["♟️", "SPORT"],
-        SWIMMING:     ["🏊", "SPORT"],
-        CYCLING:      ["🚴", "SPORT"],
+    if (
+        name.includes("MANGO") ||
+        name.includes("APPLE") ||
+        name.includes("BANANA") ||
+        name.includes("ORANGE") ||
+        name.includes("GRAPES") ||
+        name.includes("PAPAYA") ||
+        name.includes("GUAVA") ||
+        name.includes("WATERMELON") ||
+        name.includes("PINEAPPLE") ||
+        name.includes("STRAWBERRY") ||
+        name.includes("COCONUT") ||
+        name.includes("PEAR") ||
+        name.includes("PEACH") ||
+        name.includes("CHERRY")
+    ) return ["🍎", "fruit"];
 
-        // 😂 FUNNY
-        CHOCOLATE:    ["🍫", "FUNNY"],
-        BOSS:         ["😎", "FUNNY"],
-        DONKEY:       ["🫏", "FUNNY"],
-        ROCKET:       ["🚀", "FUNNY"],
-        BULLET:       ["💥", "FUNNY"],
-        CHAMP:        ["🏆", "FUNNY"],
-        JOKER:        ["🃏", "FUNNY"],
-        BOSSBABU:     ["😎", "FUNNY"],
-        SAMOSA:       ["🥟", "FUNNY"],
-        JALEBI:       ["🍩", "FUNNY"],
-        MAGGI:        ["🍜", "FUNNY"],
-        LASSI:        ["🥛", "FUNNY"],
-        PAPPU:        ["😂", "FUNNY"]
-    };
+    if (
+        name.includes("TIGER") ||
+        name.includes("LION") ||
+        name.includes("ELEPHANT") ||
+        name.includes("HORSE") ||
+        name.includes("MONKEY") ||
+        name.includes("BEAR") ||
+        name.includes("WOLF") ||
+        name.includes("FOX") ||
+        name.includes("DEER") ||
+        name.includes("RABBIT") ||
+        name.includes("PANDA") ||
+        name.includes("GIRAFFE") ||
+        name.includes("ZEBRA") ||
+        name.includes("CAMEL") ||
+        name.includes("CROCODILE")
+    ) return ["🐯", "animal"];
 
-    return themes[name] || ["🃏", "PARQO"];
+    if (
+        name.includes("HERO") ||
+        name.includes("ROBOT") ||
+        name.includes("NINJA") ||
+        name.includes("PIRATE") ||
+        name.includes("WIZARD") ||
+        name.includes("SUPERHERO") ||
+        name.includes("DETECTIVE") ||
+        name.includes("COWBOY") ||
+        name.includes("ALIEN") ||
+        name.includes("KING") ||
+        name.includes("QUEEN") ||
+        name.includes("PRINCE") ||
+        name.includes("WARRIOR") ||
+        name.includes("MAGICIAN") ||
+        name.includes("SPY")
+    ) return ["🦸", "character"];
+
+    return ["🃏", "parqo"];
+}
 }
 function renderGame(
     state
